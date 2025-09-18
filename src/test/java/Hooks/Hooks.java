@@ -11,18 +11,15 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import DriverFactory.DriverFactory;
-
 import Utilities.BaseLogger;
 import Utilities.ConfigReader;
 
-
 public class Hooks extends BaseLogger {
-	private DriverFactory driverFactory;
-    private WebDriver driver;
+    protected WebDriver driver; // made protected so tests can access
+    private DriverFactory driverFactory;
     private ConfigReader configReader;
-    Properties prop;
-    private static final String LOG_FILE_PATH = "target/logs/execution.log";
-   
+    protected Properties prop;
+
     @BeforeClass(alwaysRun = true)
     public void getProperty() {
         configReader = new ConfigReader();
@@ -33,7 +30,6 @@ public class Hooks extends BaseLogger {
     @Parameters("browser")
     public void setBrowser(@Optional("chrome") String browser) {
         DriverFactory.setBrowser(browser);
-        //log.info("Running tests on: " + browser + " | Thread ID: " + Thread.currentThread().getId());
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -44,18 +40,16 @@ public class Hooks extends BaseLogger {
         }
         driverFactory = new DriverFactory();
         driver = driverFactory.init_driver(browserName);
-       //log.info("Browser launched: " + browserName + " | Thread: " + Thread.currentThread().getId());
     }
-    
+
     @BeforeMethod(alwaysRun = true)
     public void logTestStart(Method method) {
-       log.info("Starting test: " + method.getName());
+        log.info("Starting test: " + method.getName());
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-      log.info("After all tests - quitting driver");
+        log.info("After test - quitting driver");
         DriverFactory.quitDriver();
     }
-
 }
