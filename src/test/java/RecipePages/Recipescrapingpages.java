@@ -41,6 +41,8 @@ public class Recipescrapingpages {
 		    By.cssSelector("h1.rec-heading span");
   //By.xpath("//h1[@class='rec-heading']/span[contains(text(),'paneer masala recipe')]");
 
+  private static final By INGREDIENTS = By.xpath("//div[@class='rcp_ing']//li | //span[@itemprop='recipeIngredient'] | //div[contains(@class,'ingredient')]//span");
+
              
   public void openHome() {
     driver.get(ConfigReader.getProperty("url").trim());
@@ -96,6 +98,20 @@ public class Recipescrapingpages {
   public String getRecipeName() {
     try { return driver.findElement(DETAIL_RECIPE_NAME).getText().trim(); }
     catch (Exception e) { return ""; }
+  }
+
+  public String getIngredients() {
+    try { 
+      List<WebElement> ingredientList = driver.findElements(INGREDIENTS);
+      String allIngredients = "";
+      for (WebElement ingredient : ingredientList) {
+        allIngredients = allIngredients + ingredient.getText() + "; ";
+      }
+      return allIngredients;
+    }
+    catch (Exception e) { 
+      return ""; 
+    }
   }
 
 
