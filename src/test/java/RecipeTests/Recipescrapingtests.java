@@ -3,6 +3,8 @@ package RecipeTests;
 import Utilities.ConfigReader;
 import org.testng.Assert;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
@@ -41,9 +43,29 @@ public class Recipescrapingtests {
        
     String recipeId = listId;
     Assert.assertTrue(recipeId != null && !recipeId.isBlank(), "Recipe_ID should not be null/blank");
+    
+    String prepTime = recipesPage.getPreparationTime();
+    Assert.assertTrue(prepTime != null && !prepTime.isBlank(), "Preparation_Time should not be null/blank");
+    
+    String cookTime = recipesPage.getCookingTime();
+    Assert.assertTrue(cookTime != null && !cookTime.isBlank(), "Cooking_Time should not be null/blank");
+    
+    String servings = recipesPage.getServingsText();
+    Assert.assertTrue(servings != null && !servings.isBlank(), "Servings should not be null/blank");
+    
+    List<String> tags = recipesPage.getTags();
+    Assert.assertTrue(!tags.isEmpty(), "Tags should not be empty");
+    
+    String recipeUrl = recipesPage.getRecipeUrl();
+    Assert.assertTrue(recipeUrl != null && !recipeUrl.isBlank(), "Recipe_URL should not be null/blank");
 
     System.out.println("Recipe_ID: " + recipeId);
     System.out.println("Recipe_Name: " + name);
+    System.out.println("Preparation_Time: " + prepTime);
+    System.out.println("Cooking_Time: " + cookTime);
+    System.out.println("Servings: " + servings);
+    System.out.println("Tags: " + String.join(", ", tags));
+    System.out.println("Recipe_URL: " + recipeUrl);
   }
 }
 
