@@ -42,9 +42,27 @@ public class Recipescrapingtests {
     String recipeId = listId;
     Assert.assertTrue(recipeId != null && !recipeId.isBlank(), "Recipe_ID should not be null/blank");
 
+    String ingredients = recipesPage.getIngredients();
+
     System.out.println("Recipe_ID: " + recipeId);
     System.out.println("Recipe_Name: " + name);
+    System.out.println("Ingredients: " + ingredients);
+    
+    // Check if recipe should be eliminated
+    if (LfvEliminate.shouldEliminateRecipe(ingredients)) {
+      System.out.println("This recipe should be ELIMINATED");
+    } else {
+      System.out.println("This recipe is SAFE to include");
+    }
+    
+    
+    
+       // Keep browser open for 5 minutes
+     try {
+         Thread.sleep(300000);
+    } catch (InterruptedException e) {}
+   }
   }
-}
+
 
 
