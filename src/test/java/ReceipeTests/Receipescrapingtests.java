@@ -1,5 +1,9 @@
 package ReceipeTests;
 
+import java.time.Duration;
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,7 +18,7 @@ public class Receipescrapingtests extends Hooks {
     // Initialize page AFTER browser launches
     @BeforeMethod(alwaysRun = true)
     public void setupPage() {
-        recipePage = new Receipescrapingpages(driver);
+        recipePage = new Receipescrapingpages();
     }
 
     @Test
@@ -29,4 +33,32 @@ public class Receipescrapingtests extends Hooks {
 
         Assert.assertTrue(currentUrl.contains("tarladalal"), "URL does not contain 'tarladalal'");
     }
+    
+    @Test
+    public void clickCategoriesDropdownTest() throws InterruptedException {
+        recipePage.openURL(); // navigate to the site
+        log.info("Clicking on Categories menu dropdown1");
+        // Optional: wait a little to ensure page loads
+        Thread.sleep(10000);
+
+        // Click on the Categories dropdown
+       // recipePage.clickCategoriesDropdown();
+        
+        
+        
+        log.info("Clicking on Categories menu dropdown");
+
+        
+        recipePage.clickCategoriesMenuDropdown();
+        log.info("Clicked on Categories menu dropdown");
+    }
+    
+ // ✅ Click method for Categories Menu Dropdown
+//    public void clickCategoriesMenuDropdown() {
+//        log.info("Clicking on Categories menu dropdown");
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(categoriesMenuDropdown)).click();
+//    }
+
 }

@@ -51,5 +51,5 @@ public class Hooks extends BaseLogger {
     public void tearDown() {
         log.info("After test - quitting driver");
         DriverFactory.quitDriver();
-    }
+   }
 }
