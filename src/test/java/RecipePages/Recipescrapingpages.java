@@ -40,10 +40,22 @@ public class Recipescrapingpages {
   private static final By DETAIL_RECIPE_NAME =
 		    By.cssSelector("h1.rec-heading span");
   //By.xpath("//h1[@class='rec-heading']/span[contains(text(),'paneer masala recipe')]");
+  
+  private static final By PREP_TIME =
+		    By.xpath("//h6[normalize-space()='Preparation Time']/following-sibling::p[1]");
 
-  private static final By INGREDIENTS = By.xpath("//div[@class='rcp_ing']//li | //span[@itemprop='recipeIngredient'] | //div[contains(@class,'ingredient')]//span");
+  private static final By COOK_TIME =
+		    By.xpath("//h6[normalize-space()='Cooking Time']/following-sibling::p[1]");
 
-             
+  private static final By SERVINGS =
+		    By.xpath("//h6[normalize-space()='Makes']/following-sibling::p[1]");
+
+  private static final By TAG_LINKS =
+		    By.xpath("//h5[normalize-space()='Tags']/following::div[1]//a");
+ 
+  private static final By INGREDIENTS = 
+		  By.xpath("//div[@class='rcp_ing']//li | //span[@itemprop='recipeIngredient'] | //div[contains(@class,'ingredient')]//span");
+
   public void openHome() {
     driver.get(ConfigReader.getProperty("url").trim());
     pageReady(); // waits + cleans ad overlays
@@ -94,12 +106,59 @@ public class Recipescrapingpages {
     pageReady();
     wait.until(ExpectedConditions.presenceOfElementLocated(DETAIL_RECIPE_NAME));
   }
+  
+  public String getRecipeUrl() {
+	  try {
+	    String url = driver.getCurrentUrl();    
+	    int hash = url.indexOf('#');
+	    return (hash > -1 ? url.substring(0, hash) : url).trim();
+	  } catch (Exception e) {
+	    return "";
+	  }
+	}
 
   public String getRecipeName() {
     try { return driver.findElement(DETAIL_RECIPE_NAME).getText().trim(); }
     catch (Exception e) { return ""; }
   }
 
+  public String getPreparationTime() {
+	  try {
+	    return wait.until(ExpectedConditions
+	            .visibilityOfElementLocated(PREP_TIME))
+	        .getText().trim();
+	  } catch (Exception e) {
+	    return "";
+	  }
+	}
+  
+  public String getCookingTime() {
+	  try {
+	    return wait.until(ExpectedConditions.visibilityOfElementLocated(COOK_TIME))
+	              .getText().trim();
+	  } catch (Exception e) {
+	    return "";
+	  }
+	}
+  
+  public String getServingsText() {
+	  try {
+	    return wait.until(ExpectedConditions.visibilityOfElementLocated(SERVINGS))
+	              .getText().trim();      
+	  } catch (Exception e) {
+	    return "";
+	  }
+	}
+  
+  public java.util.List<String> getTags() {
+	  java.util.List<WebElement> links = driver.findElements(TAG_LINKS);
+	  java.util.List<String> out = new java.util.ArrayList<>();
+	  for (WebElement a : links) {
+	    String t = a.getText().trim();
+	    if (!t.isEmpty()) out.add(t);
+	  }
+	  return out;
+	}
   public String getIngredients() {
     try { 
       List<WebElement> ingredientList = driver.findElements(INGREDIENTS);
@@ -113,7 +172,6 @@ public class Recipescrapingpages {
       return ""; 
     }
   }
-
 
   private WebElement firstCardLink() {
     List<WebElement> titleLinks = driver.findElements(CARD_TITLE_LINK);
