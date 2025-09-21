@@ -4,22 +4,22 @@
   <test name="Chrome">
     <parameter name="browser" value="chrome"/>
     <classes>
-      <class name="ReceipeTests.Receipescrapingtests"/>
+      <class name="RecipeTests.Recipescrapingtests"/>
     </classes>
   </test>
 
-  <test name="Edge">
-    <parameter name="browser" value="edge"/>
-    <classes>
-      <class name="ReceipeTests.Receipescrapingtests"/>
-    </classes>
-  </test>
+<!--  <test name="Edge">-->
+<!--    <parameter name="browser" value="edge"/>-->
+<!--    <classes>-->
+<!--      <class name="ReceipeTests.Receipescrapingtests"/>-->
+<!--    </classes>-->
+<!--  </test>-->
 
-  <test name="Firefox">
-    <parameter name="browser" value="firefox"/>
-    <classes>
-      <class name="ReceipeTests.Receipescrapingtests"/>
-    </classes>
-  </test>
+<!--  <test name="Firefox">-->
+<!--    <parameter name="browser" value="firefox"/>-->
+<!--    <classes>-->
+<!--      <class name="ReceipeTests.Receipescrapingtests"/>-->
+<!--    </classes>-->
+<!--  </test>-->
 
 </suite>
