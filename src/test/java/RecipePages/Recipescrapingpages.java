@@ -53,7 +53,9 @@ public class Recipescrapingpages {
   private static final By TAG_LINKS =
 		    By.xpath("//h5[normalize-space()='Tags']/following::div[1]//a");
  
-  
+  private static final By INGREDIENTS = 
+		  By.xpath("//div[@class='rcp_ing']//li | //span[@itemprop='recipeIngredient'] | //div[contains(@class,'ingredient')]//span");
+
   public void openHome() {
     driver.get(ConfigReader.getProperty("url").trim());
     pageReady(); // waits + cleans ad overlays
@@ -157,7 +159,19 @@ public class Recipescrapingpages {
 	  }
 	  return out;
 	}
-
+  public String getIngredients() {
+    try { 
+      List<WebElement> ingredientList = driver.findElements(INGREDIENTS);
+      String allIngredients = "";
+      for (WebElement ingredient : ingredientList) {
+        allIngredients = allIngredients + ingredient.getText() + "; ";
+      }
+      return allIngredients;
+    }
+    catch (Exception e) { 
+      return ""; 
+    }
+  }
 
   private WebElement firstCardLink() {
     List<WebElement> titleLinks = driver.findElements(CARD_TITLE_LINK);

@@ -59,14 +59,34 @@ public class Recipescrapingtests {
     String recipeUrl = recipesPage.getRecipeUrl();
     Assert.assertTrue(recipeUrl != null && !recipeUrl.isBlank(), "Recipe_URL should not be null/blank");
 
+    String ingredients = recipesPage.getIngredients();
+
     System.out.println("Recipe_ID: " + recipeId);
     System.out.println("Recipe_Name: " + name);
+    
     System.out.println("Preparation_Time: " + prepTime);
     System.out.println("Cooking_Time: " + cookTime);
     System.out.println("Servings: " + servings);
     System.out.println("Tags: " + String.join(", ", tags));
     System.out.println("Recipe_URL: " + recipeUrl);
+
+    System.out.println("Ingredients: " + ingredients);
+    
+    // Check if recipe should be eliminated
+    if (LfvEliminate.shouldEliminateRecipe(ingredients)) {
+      System.out.println("This recipe should be ELIMINATED");
+    } else {
+      System.out.println("This recipe is SAFE to include");
+    }
+    
+    
+    
+       // Keep browser open for 5 minutes
+     try {
+         Thread.sleep(300000);
+    } catch (InterruptedException e) {}
+   }
   }
-}
+
 
 
