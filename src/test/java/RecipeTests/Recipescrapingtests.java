@@ -129,11 +129,8 @@ public class Recipescrapingtests {
       System.out.println("Tags: " + tags);
       System.out.println("Ingredients: " + ingredients);
       
-      if (LfvEliminate.shouldEliminateRecipe(ingredients)) {
-        System.out.println("This recipe should be ELIMINATED");
-      } else {
-        System.out.println("This recipe is SAFE to include");
-      }
+      // Process recipe and save if eliminated
+      LfvEliminate.processAndSaveRecipe(listId, name, ingredients, prepTime, cookTime, servings, tags, url);
       
       driver.navigate().back();
       try { Thread.sleep(1000); } catch (InterruptedException e) {}
