@@ -79,6 +79,12 @@ public class Recipescrapingtests {
       System.out.println("This recipe is SAFE to include");
     }
     
+ // Check if recipe should be Added
+    if (LFVAdd.shouldAddRecipe(ingredients)) {
+        System.out.println("This recipe should be ADDED");
+      } else {
+        System.out.println("This recipe is NOTSAFE to include");
+      }
     
     
        // Keep browser open for 5 minutes
