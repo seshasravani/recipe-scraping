@@ -89,6 +89,7 @@ public class Recipescrapingpages {
         By.cssSelector("span.rcc_recipename a, div.recipe-description a")));
   }
 
+  /*
   public String getFirstListRecipeId() {
     try {
       WebElement idEl = wait.until(
@@ -106,6 +107,9 @@ public class Recipescrapingpages {
     pageReady();
     wait.until(ExpectedConditions.presenceOfElementLocated(DETAIL_RECIPE_NAME));
   }
+
+  */
+
   
   public String getRecipeUrl() {
 	  try {
@@ -173,11 +177,38 @@ public class Recipescrapingpages {
     }
   }
 
+  public int getTotalCardCount() {
+    List<WebElement> titleCards = driver.findElements(CARD_TITLE_LINK);
+    List<WebElement> altCards = driver.findElements(CARD_ALT_LINK);
+    return Math.max(titleCards.size(), altCards.size());
+  }
+
+  public void openRecipeAtIndex(int index) {
+    List<WebElement> titleCards = driver.findElements(CARD_TITLE_LINK);
+    List<WebElement> altCards = driver.findElements(CARD_ALT_LINK);
+    
+    WebElement cardToClick = titleCards.size() > index ? titleCards.get(index) : altCards.get(index);
+    driver.navigate().to(absolutize(cardToClick.getAttribute("href")));
+    pageReady();
+  }
+
+  public String getRecipeIdAtIndex(int index) {
+    List<WebElement> ids = driver.findElements(By.xpath("//*[contains(text(),'Recipe#')]"));
+    if (index < ids.size()) {
+      return ids.get(index).getText().replaceAll("\\D+", "");
+    }
+    return "";
+  }
+
+
+  /*
+
   private WebElement firstCardLink() {
     List<WebElement> titleLinks = driver.findElements(CARD_TITLE_LINK);
     if (!titleLinks.isEmpty()) return titleLinks.get(0);
     return wait.until(ExpectedConditions.presenceOfElementLocated(CARD_ALT_LINK));
   }
+  */
 
   private void pageReady() {
     try {
@@ -209,6 +240,9 @@ public class Recipescrapingpages {
 
   private static final String HEALTHY_URL =
       "https://www.tarladalal.com/category/Healthy-Indian-Recipes/";
+      
+  // private static final String HEALTHY_URL =
+  //     "https://www.tarladalal.com/RecipeAtoZ.aspx?beginswith=S&recipetype=Salad";
 }
 
 

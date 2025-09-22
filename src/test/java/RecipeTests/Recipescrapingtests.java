@@ -27,6 +27,7 @@ public class Recipescrapingtests {
     if (driver != null) driver.quit();
   }
 
+  /*
   @Test
   public void openFirstRecipeCard() {
     Recipescrapingpages recipesPage = new Recipescrapingpages(driver);
@@ -92,6 +93,42 @@ public class Recipescrapingtests {
          Thread.sleep(300000);
     } catch (InterruptedException e) {}
    }
+   */
+
+  @Test
+  public void processAllRecipeCards() {
+    Recipescrapingpages recipesPage = new Recipescrapingpages(driver);
+
+    recipesPage.openHome();
+    recipesPage.openHealthyCategoryDirect();
+    recipesPage.openFirstTileFromHealthyCategory();
+
+    int totalCards = recipesPage.getTotalCardCount();
+    System.out.println("Found " + totalCards + " recipe cards to process");
+    
+    for (int i = 0; i < totalCards; i++) {
+      System.out.println("\n--- Processing Card " + (i + 1) + " of " + totalCards + " ---");
+      
+      String listId = recipesPage.getRecipeIdAtIndex(i);
+      recipesPage.openRecipeAtIndex(i);
+
+      String name = recipesPage.getRecipeName();
+      String ingredients = recipesPage.getIngredients();
+
+      System.out.println("Recipe_ID: " + listId);
+      System.out.println("Recipe_Name: " + name);
+      System.out.println("Ingredients: " + ingredients);
+      
+      if (LfvEliminate.shouldEliminateRecipe(ingredients)) {
+        System.out.println("This recipe should be ELIMINATED");
+      } else {
+        System.out.println("This recipe is SAFE to include");
+      }
+      
+      driver.navigate().back();
+      try { Thread.sleep(1000); } catch (InterruptedException e) {}
+    }
+  }
   }
 
 
