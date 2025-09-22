@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class jdbc {
     private static final String URL = "jdbc:postgresql://localhost:5432/lfv_recipes";
-    private static final String USER = "sravani";
+    private static final String USER = "blossom";
     private static final String PASSWORD = "recipe_scraping";
     
     public static Connection getConnection() throws SQLException {
