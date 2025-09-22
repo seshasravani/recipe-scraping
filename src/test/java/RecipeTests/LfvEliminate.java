@@ -2,6 +2,7 @@ package RecipeTests;
 
 import java.util.List;
 import Utilities.ExcelReader;
+import Utilities.jdbc;
 
 public class LfvEliminate {
     
@@ -40,5 +41,25 @@ public class LfvEliminate {
             }
         }
         return false;
+    }
+    
+    public static void processAndSaveRecipe(String listId, String name, String ingredients, String prepTime, 
+                                          String cookTime, String servings, List<String> tags, String url) {
+        if (shouldEliminateRecipe(ingredients)) {
+            System.out.println("This recipe should be ELIMINATED");
+            
+            // Save eliminated recipe to database with scraped recipe ID
+            Integer servingCount = null;
+            try {
+                servingCount = Integer.parseInt(servings.replaceAll("[^0-9]", ""));
+            } catch (Exception e) {}
+            
+            // Store scraped recipe ID in recipe_category field for now
+            jdbc.insertRecipe(name, listId, "Healthy", ingredients, prepTime, cookTime, 
+                             String.join(", ", tags), servingCount, null, null, 
+                             null, null, url);
+        } else {
+            System.out.println("This recipe is SAFE to include");
+        }
     }
 }
