@@ -6,6 +6,8 @@ import Utilities.jdbc;
 
 public class LfvEliminate {
     
+    private static int nonEliminatedCount = 0;
+    
     public static List<String> getEliminateList() {
         try {
            
@@ -60,6 +62,27 @@ public class LfvEliminate {
                              null, null, url);
         } else {
             System.out.println("This recipe is SAFE to include");
+            
+            // Save non-eliminated recipe to lfv_noneliminated_recipes table
+            Integer servingCount = null;
+            try {
+                servingCount = Integer.parseInt(servings.replaceAll("[^0-9]", ""));
+            } catch (Exception e) {}
+            
+            // Store scraped recipe ID in recipe_category field for non-eliminated recipes
+            jdbc.insertNonEliminatedRecipe(name, listId, "Healthy", ingredients, prepTime, cookTime, 
+                                         String.join(", ", tags), servingCount, null, null, 
+                                         null, null, url);
+            nonEliminatedCount++;
+            System.out.println("Recipe inserted into lfv_noneliminated_recipes table: " + name);
+        }
+    }
+    
+    public static void printNonEliminatedSummary() {
+        if (nonEliminatedCount == 0) {
+            System.out.println("No recipes inserted into lfv_noneliminated_recipes table");
+        } else {
+            System.out.println(nonEliminatedCount + " recipes inserted into lfv_noneliminated_recipes table");
         }
     }
 }
