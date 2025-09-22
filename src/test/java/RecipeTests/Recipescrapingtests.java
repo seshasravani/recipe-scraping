@@ -112,11 +112,21 @@ public class Recipescrapingtests {
       String listId = recipesPage.getRecipeIdAtIndex(i);
       recipesPage.openRecipeAtIndex(i);
 
+      String url = recipesPage.getRecipeUrl();
       String name = recipesPage.getRecipeName();
+      String prepTime = recipesPage.getPreparationTime();
+      String cookTime = recipesPage.getCookingTime();
+      String servings = recipesPage.getServingsText();
+      java.util.List<String> tags = recipesPage.getTags();
       String ingredients = recipesPage.getIngredients();
 
       System.out.println("Recipe_ID: " + listId);
+      System.out.println("Recipe_URL: " + url);
       System.out.println("Recipe_Name: " + name);
+      System.out.println("Prep_Time: " + prepTime);
+      System.out.println("Cook_Time: " + cookTime);
+      System.out.println("Servings: " + servings);
+      System.out.println("Tags: " + tags);
       System.out.println("Ingredients: " + ingredients);
       
       if (LfvEliminate.shouldEliminateRecipe(ingredients)) {
