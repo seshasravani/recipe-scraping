@@ -120,7 +120,6 @@ public class Recipescrapingpages {
 	    return "";
 	  }
 	}
->>>>>>> 750be84d82b27768d1d1de9dcb10b6b57ea55410
 
   public String getRecipeName() {
     try { return driver.findElement(DETAIL_RECIPE_NAME).getText().trim(); }
