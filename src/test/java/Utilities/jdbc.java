@@ -3,9 +3,9 @@ package Utilities;
 import java.sql.*;
 
 public class jdbc {
-	private static final String URL = "jdbc:postgresql://localhost:5432/Team03_RecipeScraping_dB";
+	private static final String URL = "jdbc:postgresql://localhost:5432/RecipeScraping";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "SQLpassword";
+    private static final String PASSWORD = "Connect@1406";
     
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
