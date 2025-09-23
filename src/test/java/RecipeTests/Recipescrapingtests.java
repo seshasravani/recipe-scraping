@@ -132,6 +132,9 @@ public class Recipescrapingtests {
       // Process recipe and save if eliminated
       LfvEliminate.processAndSaveRecipe(listId, name, ingredients, prepTime, cookTime, servings, tags, url);
       
+      LchfEliminate.processAndSaveRecipe(listId, name, ingredients, prepTime, cookTime, servings, tags, url);
+
+      
       driver.navigate().back();
       try { Thread.sleep(1000); } catch (InterruptedException e) {}
     }
