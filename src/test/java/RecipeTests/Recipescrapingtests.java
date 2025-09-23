@@ -12,7 +12,7 @@ import org.testng.annotations.*;
 import RecipePages.Recipescrapingpages;
 
 public class Recipescrapingtests {
-
+ 
   private WebDriver driver;
 
   //runs before each test
@@ -138,6 +138,9 @@ public class Recipescrapingtests {
       driver.navigate().back();
       try { Thread.sleep(1000); } catch (InterruptedException e) {}
     }
+    
+    // Print summary of non-eliminated recipes
+    LfvEliminate.printNonEliminatedSummary();
   }
   }
 
