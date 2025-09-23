@@ -89,27 +89,6 @@ public class Recipescrapingpages {
         By.cssSelector("span.rcc_recipename a, div.recipe-description a")));
   }
 
-  /*
-  public String getFirstListRecipeId() {
-    try {
-      WebElement idEl = wait.until(
-          ExpectedConditions.presenceOfElementLocated(FIRST_RECIPE_ID_ON_PAGE));
-      String raw = idEl.getText();
-      return raw == null ? "" : raw.replaceAll("\\D+", "");
-    } catch (Exception e) {
-      return "";
-    }
-  }
-
-  public void openFirstRecipeFromList() {
-    WebElement link = firstCardLink();
-    driver.navigate().to(absolutize(link.getAttribute("href")));
-    pageReady();
-    wait.until(ExpectedConditions.presenceOfElementLocated(DETAIL_RECIPE_NAME));
-  }
-
-  */
-
   
   public String getRecipeUrl() {
 	  try {
@@ -199,16 +178,6 @@ public class Recipescrapingpages {
     }
     return "";
   }
-
-
-  /*
-
-  private WebElement firstCardLink() {
-    List<WebElement> titleLinks = driver.findElements(CARD_TITLE_LINK);
-    if (!titleLinks.isEmpty()) return titleLinks.get(0);
-    return wait.until(ExpectedConditions.presenceOfElementLocated(CARD_ALT_LINK));
-  }
-  */
 
   private void pageReady() {
     try {
