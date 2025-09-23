@@ -32,11 +32,6 @@ public class Recipescrapingpages {
       By.cssSelector("div.recipe-description a[href]");     
   //if in the recipe card title is not working or absent, we can click more
 
-  private static final By FIRST_RECIPE_ID_ON_PAGE =
-      By.xpath("(//*[contains(text(),'Recipe#')])[1]"); //1 means we are selecting the first recipe#
-  //By.xpath("//p[@class='recipe-count' and normalize-space()='Recipe# 2690']");
-
-
   private static final By DETAIL_RECIPE_NAME =
 		    By.cssSelector("h1.rec-heading span");
   //By.xpath("//h1[@class='rec-heading']/span[contains(text(),'paneer masala recipe')]");
@@ -58,7 +53,7 @@ public class Recipescrapingpages {
 
   public void openHome() {
     driver.get(ConfigReader.getProperty("url").trim());
-    pageReady(); // waits + cleans ad overlays
+    pageReady(); 
   }
 
   public void openHealthyCategoryDirect() {
@@ -89,28 +84,6 @@ public class Recipescrapingpages {
         By.cssSelector("span.rcc_recipename a, div.recipe-description a")));
   }
 
-  /*
-  public String getFirstListRecipeId() {
-    try {
-      WebElement idEl = wait.until(
-          ExpectedConditions.presenceOfElementLocated(FIRST_RECIPE_ID_ON_PAGE));
-      String raw = idEl.getText();
-      return raw == null ? "" : raw.replaceAll("\\D+", "");
-    } catch (Exception e) {
-      return "";
-    }
-  }
-
-  public void openFirstRecipeFromList() {
-    WebElement link = firstCardLink();
-    driver.navigate().to(absolutize(link.getAttribute("href")));
-    pageReady();
-    wait.until(ExpectedConditions.presenceOfElementLocated(DETAIL_RECIPE_NAME));
-  }
-
-  */
-
-  
   public String getRecipeUrl() {
 	  try {
 	    String url = driver.getCurrentUrl();    
@@ -200,16 +173,6 @@ public class Recipescrapingpages {
     return "";
   }
 
-
-  /*
-
-  private WebElement firstCardLink() {
-    List<WebElement> titleLinks = driver.findElements(CARD_TITLE_LINK);
-    if (!titleLinks.isEmpty()) return titleLinks.get(0);
-    return wait.until(ExpectedConditions.presenceOfElementLocated(CARD_ALT_LINK));
-  }
-  */
-
   private void pageReady() {
     try {
       new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -241,8 +204,6 @@ public class Recipescrapingpages {
   private static final String HEALTHY_URL =
       "https://www.tarladalal.com/category/Healthy-Indian-Recipes/";
       
-  // private static final String HEALTHY_URL =
-  //     "https://www.tarladalal.com/RecipeAtoZ.aspx?beginswith=S&recipetype=Salad";
 }
 
 
