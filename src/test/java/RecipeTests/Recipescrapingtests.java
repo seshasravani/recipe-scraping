@@ -62,6 +62,9 @@ public class Recipescrapingtests {
       LchfEliminate.processAndSaveRecipe(listId, name, ingredients, prepTime, cookTime, servings, tags, url);
       
       LFVAdd.processAndSaveRecipe(listId, name, ingredients, prepTime, cookTime, servings, tags, url);
+      
+      LchfAdd.processAndSaveRecipe(listId, name, ingredients, prepTime, cookTime, servings, tags, url);
+
 
       
       driver.navigate().back();
